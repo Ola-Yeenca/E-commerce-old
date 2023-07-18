@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  {{ item.name }}
+{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-5 gap-6">
+  <div class="col-span-3">
+    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="rounded-xl">
+  </div>
+
+  <div class="col-span-2 p-6 bg-gray rounded-xl">
+    <h1 class="mb-6 text-3xl">
+      {{ item.name }}
+    </h1>
+    {% if user == item.owner or request.user in group_members %}
+    <a href="{% url 'core:edit_item' item.id %}" class="block mb-6 text-center text-white bg-blue-500 rounded-xl hover:bg-blue-600">
+      Edit
+    </a>
+    {% endif %}
+    <p class="text-gray-500">
+      <strong>Price: {{ item.price }}</strong>
+    </p>
+    <p class="text-gray-500">
+      <strong>Vendor: {{ item.created_by.username }}</strong>
+    </p>
+
+    {% if item.description %}
+      <p class="mt-6 text-gray-700">
+        <strong class="text-gray-500">Description:</strong><br>
+        {{ item.description }}
+      </p>
+    {% endif %}
+
+    <a href="#"class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">
+      Message Vendor
+    </a>
+  </div>
+</div>
+
+{% if related_items %}
+<div class="px-6 py-12 mt-6 bg-gray-100 rounded-xl">
+  <h2 class="mb-12 text-2xl text-center">
+    <span class="text-blue-500">Related Accessories</span> 🔥🔥🔥!
+  </h2>
+
+  {% if related_items %}
+    <!-- Debug statement -->
+    <p>Number of accessories: {{ related_items|length }}</p>
+  {% else %}
+    <p>No related accessories available.</p>
+  {% endif %}
+
+  <div class="grid grid-cols-3 gap-3">
+    {% for item in related_items %}
+      <div>
+        <a href="{% url 'item:detail' item.id %}">
+          <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-32 h-32 mb-4 rounded-full">
+          <div class="p-6 bg-white rounded-b-xl">
+            <h2 class="text-2xl">{{ item.name }}</h2>
+            <p class="text-black-100">Price: {{ item.price }}</p>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}
