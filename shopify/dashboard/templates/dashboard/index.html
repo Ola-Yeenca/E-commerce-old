@@ -1,11 +1,12 @@
 {% extends 'core/base.html' %}
 
-{% block title %} Welcome {% endblock %}
+
+{% block title %}{{ dashboard }}{% endblock  %}
 
 {% block content %}
 <div class="px-6 py-12 mt-6 bg-gray-100 rounded-xl">
   <h2 class="mb-12 text-2xl text-center">
-  <span class="text-blue-500">Trending Accessories</span> 🔥🔥🔥!
+  <span class="text-blue-500">My Accessories</span>
   </h2>
 
   {% if items %}
@@ -31,19 +32,4 @@
   </div>
 </div>
 
-<div class="px-6 py-12 mt-6 bg-gray100 rounded-xl">
-  <h2 class="mb-12 text-2xl text-center">Categories</h2>
-
-  <div class="grid grid-cols-3 gap-3">
-    {% for category in categories %}
-      <div>
-        <a href="#"></a>
-        <div class="p-6 bg-white rounded-b-xl">
-          <h2 class="text-2xl">{{ category.name }}</h2>
-          <p class="text-gray-500">{{ category.items.count }} items </p>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
-{% endblock %}
+{% endblock  %}
