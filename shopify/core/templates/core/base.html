@@ -14,7 +14,7 @@
         <a href="/" class="text-xl font-semibold">Shopify</a>
         <div class="space-x-6">
           <a href="/products" class="text-lg font-semibold hover:text-gray-500">Products</a>
-          <a href="/products/create" class="text-lg font-semibold hover:text-gray-500">Create</a>
+          <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">New Product</a>
         </div>
 
         {% if user.is_authenticated %}
