@@ -13,7 +13,7 @@
     <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
         <a href="/" class="text-xl font-semibold">Shopify</a>
         <div class="space-x-6">
-          <a href="/products" class="text-lg font-semibold hover:text-gray-500">Products</a>
+          <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500">Products</a>
           <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">New Product</a>
         </div>
 
