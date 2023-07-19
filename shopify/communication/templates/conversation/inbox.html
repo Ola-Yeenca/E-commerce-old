@@ -9,18 +9,24 @@
 
 <div class="space-y-6">
   {% for conversation in conversations %}
-  <a href="#">
+<a href="#">
     <div class="p-6 flex bg-gray-100 rounded-xl">
       <div class="flex-shrink-0 pr-6">
         <img class="h-12 w-20 rounded-xl" src="{{ conversation.item.image.url }}" alt="">
       </div>
-      <div class="ml-6">
-        <div class="flex">
-          <h4 class="text-lg font-semibold text-gray-900">{{ conversation.other_user.username }}</h4>
-        </div>
-        <p class="text-sm text-gray-500">
-          {{ conversation.last_message.content }}
-        </p>
+
+      <div>
+        {% for member in conversation.member.all %}
+          {% if member != request.user %}
+            <p>
+              <div class="mb-4">
+                <strong>{{ member.username }}</strong> | {{ conversation.timestamp }} |  {{ conversation.modified_at }}
+                says: "{{ conversation.message|truncatechars:"50"}}..."
+              </div>
+            </p>
+            <p>{{ conversation.item.name }}</p>
+          {% endif %}
+        {% endfor %}
       </div>
     </div>
   </a>

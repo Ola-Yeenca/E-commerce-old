@@ -41,3 +41,23 @@ def new_conversation(request, item_pk):
 def inbox(request):
     conversations = Conversation.objects.filter(member=request.user)
     return render(request, 'conversation/inbox.html', {'conversations': conversations})
+
+
+@login_required
+def detail(request, conversation_pk):
+    conversation = get_object_or_404(Conversation, pk=conversation_pk)
+    if request.user not in conversation.member.all():
+        return redirect('dashboard:index')
+
+    if request.method == 'POST':
+        form = ConversationMessageForm(request.POST)
+        if form.is_valid():
+            conversation_message = form.save(commit=False)
+            conversation_message.conversation = conversation
+            conversation_message.sender = request.user
+            conversation_message.save()
+            return redirect('conversation:detail', conversation_pk=conversation_pk)
+    else:
+        form = ConversationMessageForm()
+
+    return render(request, 'conversation/detail.html', {'conversation': conversation, 'form': form})
