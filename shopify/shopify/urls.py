@@ -7,6 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('dashboard/', include('dashboard.urls')),
-    path('messages/', include('communication.urls')),
+    path('communication/', include('communication.urls', namespace='conversation')),
     path('items/', include('item.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
