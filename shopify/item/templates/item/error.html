@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ error_message }}{% endblock %}
+
+
+{% block content %}
+  <div class="mt-6 px-3 py-5 text-semibold error-message">
+    <h2>{{ error_message }}</h2>
+    <div class="mt-6">
+      <a href="{% url 'item:items' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Go Back to Search
+      </a>
+    </div>
+  </div>
+{% endblock %}
+

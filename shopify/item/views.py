@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import Category, Item
 from .forms import NewItemForm, EditItemForm
+from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 def items(request):
     query = request.GET.get('query', '')
@@ -12,9 +14,19 @@ def items(request):
 
     if category_id:
         items = items.filter(category_id=category_id)
-
     if query:
-        items = items.filter(name__icontains=query)
+        items = items.filter(
+            Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query)
+        )
+
+    try:
+        items = items.all()
+    except ObjectDoesNotExist:
+        items = []
+
+    if not items:
+        error_message = "Product not found."
+        return render(request, 'item/error.html', {'error_message': error_message})
 
     return render(request, 'item/items.html', {
         'items': items,
@@ -22,6 +34,8 @@ def items(request):
         'categories': categories,
         'category_id': int(category_id)
     })
+
+
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
