@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Inbox{% endblock  %}
+{% block title %}Inbox{% endblock %}
 
 {% block content %}
 <h1 class="mb-6 text-3xl">
@@ -8,29 +8,28 @@
 </h1>
 
 <div class="space-y-6">
-  {% for conversation in conversations %}
-<a href="#">
-    <div class="p-6 flex bg-gray-100 rounded-xl">
-      <div class="flex-shrink-0 pr-6">
-        <img class="h-12 w-20 rounded-xl" src="{{ conversation.item.image.url }}" alt="">
-      </div>
-
-      <div>
-        {% for member in conversation.member.all %}
-          {% if member != request.user %}
-            <p>
-              <div class="mb-4">
-                <strong>{{ member.username }}</strong> | {{ conversation.timestamp }} |  {{ conversation.modified_at }}
-                says: "{{ conversation.message|truncatechars:"50"}}..."
-              </div>
-            </p>
-            <p>{{ conversation.item.name }}</p>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </a>
-  {% endfor %}
+    {% for conversation in conversations %}
+        <a href="{% url 'conversation:detail' conversation.id %}">
+            <div class="p-6 flex bg-gray-100 rounded-xl">
+                <div class="flex-shrink-0 pr-6">
+                    <img class="h-12 w-20 rounded-xl" src="{{ conversation.item.image.url }}" alt="">
+                </div>
+                <div>
+                    {% for member in conversation.members.all %}
+                        {% if member != request.user %}
+                            <p>
+                                <div class="mb-4">
+                                    <strong>{{ member.username }}</strong> | {{ conversation.timestamp }} | {{ conversation.modified_at }}
+                                    says: "{{ conversation.messages.first.message|truncatechars:"100"}}..."
+                                </div>
+                            </p>
+                            <p>{{ conversation.item.name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
 </div>
 
 {% endblock %}

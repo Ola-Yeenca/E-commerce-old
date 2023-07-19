@@ -11,7 +11,7 @@ def new_conversation(request, item_pk):
     if item.created_by == request.user:
         return redirect('dashboard:index')
 
-    conversation = Conversation.objects.filter(item=item, member=request.user).first()
+    conversation = Conversation.objects.filter(item=item, members=request.user).first()
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
@@ -20,7 +20,7 @@ def new_conversation(request, item_pk):
             if not conversation:
                 try:
                     conversation = Conversation.objects.create(item=item)
-                    conversation.member.add(request.user)
+                    conversation.members.add(request.user)  # Add the current user as a member
                 except Exception as e:
                     # Handle the conversation creation failure
                     error_message = "Failed to create a conversation. Please try again."
@@ -39,7 +39,8 @@ def new_conversation(request, item_pk):
 
 @login_required
 def inbox(request):
-    conversations = Conversation.objects.filter(member=request.user)
+    conversations = Conversation.objects.filter(members__in=[request.user.id])
+    print(conversations)  # Add this line to check the queryset
     return render(request, 'conversation/inbox.html', {'conversations': conversations})
 
 
@@ -48,6 +49,8 @@ def detail(request, conversation_pk):
     conversation = get_object_or_404(Conversation, pk=conversation_pk)
     if request.user not in conversation.member.all():
         return redirect('dashboard:index')
+
+    print(conversation.messages.all())
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
