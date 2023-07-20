@@ -31,5 +31,26 @@
         </a>
     {% endfor %}
 </div>
+<!-- Your existing HTML content -->
+
+<!-- Use WebSocket connection for SocketConsumer -->
+<script>
+  var socket = new WebSocket("ws://" + window.location.host + "/ws/socket/");
+  socket.onmessage = function (event) {
+      console.log("Received message from SocketConsumer:", event.data);
+      // Handle the incoming message from SocketConsumer here
+  };
+</script>
+
+<!-- Use WebSocket connection for NotificationConsumer -->
+<script>
+  var notificationSocket = new WebSocket("ws://" + window.location.host + "/ws/notification/");
+  notificationSocket.onmessage = function (event) {
+      console.log("Received message from NotificationConsumer:", event.data);
+      // Handle the incoming message from NotificationConsumer here
+  };
+</script>
+
+
 
 {% endblock %}

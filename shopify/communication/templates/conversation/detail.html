@@ -22,4 +22,15 @@
   {% endfor %}
 </div>
 
+<!-- Your existing HTML content -->
+
+<script>
+  var socket = new WebSocket("ws://localhost:12345/");  // Replace 'localhost' with your server IP
+  socket.onmessage = function (event) {
+      console.log("Received message from server:", event.data);
+      // Handle the incoming message, e.g., update the conversation with the new message
+  };
+</script>
+
+
 {% endblock %}

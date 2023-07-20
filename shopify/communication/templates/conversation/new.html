@@ -29,4 +29,20 @@
         Send Message
       </button>
   </form>
+<!-- Your existing HTML content -->
+
+<script>
+  var socket = new WebSocket("ws://localhost:12345/");  // Replace 'localhost' with your server IP
+  socket.onmessage = function (event) {
+      console.log("Received message from server:", event.data);
+      // Handle the incoming message, e.g., update the chat window with the new message
+  };
+
+  function sendMessage() {
+      var message = document.getElementById("message-input").value;
+      socket.send(message);
+  }
+</script>
+
+
 {% endblock %}

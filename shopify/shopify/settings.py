@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'core',
     'item',
     'dashboard',
-    'communication'
+    'communication',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'shopify.wsgi.application'
+ASGI_APPLICATION = 'shopify.asgi.application'
 
 
 # Database
