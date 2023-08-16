@@ -4,6 +4,7 @@ from .models import Conversation, ConversationMessage
 from item.models import Item
 from .forms import ConversationMessageForm
 
+
 @login_required
 def new_conversation(request, item_pk):
     item = get_object_or_404(Item, pk=item_pk)
@@ -44,13 +45,15 @@ def inbox(request):
     return render(request, 'conversation/inbox.html', {'conversations': conversations})
 
 
+from django.contrib.auth.decorators import login_required
+
 @login_required
 def detail(request, conversation_pk):
     conversation = get_object_or_404(Conversation, pk=conversation_pk)
-    if request.user not in conversation.member.all():
-        return redirect('dashboard:index')
+    print('Conversation: ', conversation)
 
-    print(conversation.messages.all())
+    if request.user not in conversation.members.all():
+        return redirect('dashboard:index')
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
@@ -64,3 +67,14 @@ def detail(request, conversation_pk):
         form = ConversationMessageForm()
 
     return render(request, 'conversation/detail.html', {'conversation': conversation, 'form': form})
+
+def send_notification(user, message):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        user.username,
+        {
+            "type": "chat.message",
+            "message_type": "notification",
+            "message": message,
+        },
+    )

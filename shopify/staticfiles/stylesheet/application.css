@@ -1,0 +1,7 @@
+.header {
+  color: #0393e0;
+  border-bottom: 1px solid #ebebeb;
+  padding: 0 0 0 0;
+  position: relative;
+  z-index: 100;
+}
