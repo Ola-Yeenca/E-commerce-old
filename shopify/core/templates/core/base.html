@@ -50,17 +50,14 @@
     </section>
 
     <section>
-      <footer class="px-6 py-6 flex justify-between bg-gray-800">
-        <div class="w-2/3 pr-10">
-          <h3 class="mb-5 font-semibold text-gray-400">About</h3>
+      <footer class="flex flex-col bg-gray-800 px-6 py-6">
+        <div class="flex justify-between items-end">
           <p class="text-lg text-gray-500">
             <i class="devicon-shopware-original"></i>
-          Shopware.com &copy; 2023</p>
-        </div>
+            Shopware.com &copy; 2023
+          </p>
 
-        <div class="w-1/3 ">
-          <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
-          <ul class="space-y-2">
+          <ul class="flex space-x-6">
             <li><a href="{% url 'core:index' %}" class="text-lg text-gray-500 hover:text-gray-400">Home</a></li>
             <li><a href="#" class="text-lg text-gray-500 hover:text-gray-400">About</a></li>
             <li><a href="{% url 'core:contact' %}" class="text-lg text-gray-500 hover:text-gray-400">Contact</a></li>
