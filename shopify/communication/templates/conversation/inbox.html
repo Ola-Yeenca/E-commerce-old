@@ -15,34 +15,34 @@
 
   <div class="space-y-6">
     {% for conversation in conversations %}
-      {% if conversation.messages.last.sender == request.user %}
-      <a href="{% url 'conversation:detail' conversation.id %}">
-        <div class="p-6 bg-gray-100 rounded-xl mb-4">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <img class="h-12 w-20 rounded-xl" src="{{ conversation.item.image.url }}" alt="{{ conversation.item.name }}">
+      <p>Conversation ID: {{ conversation.id }}</p>
+      <p>Admin User in Members: {{ conversation.admin_in_members }}</p>
+    <a href="{% url 'conversation:detail' conversation.id %}">
+      <div class="p-6 bg-gray-100 rounded-xl mb-4">
+        <div class="flex items-center space-x-4">
+          <div class="flex-shrink-0">
+            <img class="h-12 w-20 rounded-xl" src="{{ conversation.item.image.url }}" alt="{{ conversation.item.name }}">
+          </div>
+          <div class="flex-grow">
+            <div class="flex justify-between">
+              <p class="text-lg font-semibold">{{ conversation.item.name }}</p>
+              <p class="text-gray-500 text-sm">{{ conversation.messages.last.timestamp|date:"F d, Y" }}</p>
             </div>
-            <div class="flex-grow">
-              <div class="flex justify-between">
-                <p class="text-lg font-semibold">{{ conversation.item.name }}</p>
-                <p class="text-gray-500 text-sm">{{ conversation.messages.last.timestamp|date:"F d, Y" }}</p>
-              </div>
-              {% if conversation.messages.last %}
-              <p class="text-gray-600 mt-1">
-                <strong>{{ conversation.messages.last.sender.username }}:</strong> "{{ conversation.messages.last.message|truncatechars:60 }}"
-              </p>
-              {% else %}
-              <p class="text-gray-600 mt-1">No messages yet.</p>
-              {% endif %}
-            </div>
+            {% if conversation.messages.last %}
+            <p class="text-gray-600 mt-1">
+              <strong>{{ conversation.messages.last.sender.username }}:</strong> "{{ conversation.messages.last.message|truncatechars:60 }}"
+            </p>
+            {% else %}
+            <p class="text-gray-600 mt-1">No messages yet.</p>
+            {% endif %}
           </div>
         </div>
-      </a>
-      <script src="{% static 'js/websocket.js' %}"></script>
-      <script>
-        setupWebSocket('{{ conversation.id }}');
-      </script>
-      {% endif %}
+      </div>
+    </a>
+    <script src="{% static 'js/websocket.js' %}"></script>
+    <script>
+      setupWebSocket('{{ conversation.id }}');
+    </script>
     {% endfor %}
   </div>
 </div>

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Case, When, Value, BooleanField
 from .models import Conversation, ConversationMessage
 from item.models import Item
 from .forms import ConversationMessageForm
-
+from django.contrib.auth.decorators import user_passes_test
 
 
 @login_required
@@ -19,42 +20,49 @@ def new_conversation(request, item_pk):
         form = ConversationMessageForm(request.POST)
 
         if form.is_valid():
-            if not conversation:
-                try:
+            try:
+                if not conversation:
                     conversation = Conversation.objects.create(item=item)
-                    conversation.members.add(request.user)  # Add the current user as a member
-                except Exception as e:
-                    # Handle the conversation creation failure
-                    error_message = "Failed to create a conversation. Please try again."
-                    return render(request, 'conversation/error.html', {'error_message': error_message, 'conversation': None})
+                    conversation.members.add(request.user)
 
-            conversation_message = form.save(commit=False)
-            conversation_message.conversation = conversation
-            conversation_message.sender = request.user
-            conversation_message.save()
-            return redirect('item:detail', pk=item_pk)
+                conversation_message = form.save(commit=False)
+                conversation_message.conversation = conversation
+                conversation_message.sender = request.user
+                conversation_message.save()
+
+                return redirect('item:detail', pk=item_pk)
+            except Exception:
+                # Handle conversation creation and message saving failure
+                error_message = "Failed to create a conversation or save the message. Please try again."
+                messages.error(request, error_message)
     else:
         form = ConversationMessageForm()
 
     return render(request, 'conversation/new.html', {'form': form, 'item': item, 'conversation': conversation})
 
-
 @login_required
 def inbox(request):
-    conversations = Conversation.objects.filter(members__in=[request.user.id])
-    print(conversations)  # Add this line to check the queryset
+    conversations = Conversation.objects.filter(members=request.user)
+    conversations = conversations.annotate(admin_in_members=Case(
+        When(members=request.user, then=Value(True)),
+        default=Value(False),
+        output_field=BooleanField()
+    ))
+    conversations = Conversation.objects.all()
+    for conversation in conversations:
+        print('Conversation:', conversation)
+        print('Members:', conversation.members.all())
+
     return render(request, 'conversation/inbox.html', {'conversations': conversations})
 
 
-from django.contrib.auth.decorators import login_required
-
 @login_required
+@user_passes_test(lambda user: user.is_superuser or user.is_staff, login_url='dashboard:index')
 def detail(request, conversation_pk):
     conversation = get_object_or_404(Conversation, pk=conversation_pk)
-    print('Conversation: ', conversation)
 
     if request.user not in conversation.members.all():
-        return redirect('dashboard:index')
+        return redirect('conversation:inbox')
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
@@ -68,23 +76,3 @@ def detail(request, conversation_pk):
         form = ConversationMessageForm()
 
     return render(request, 'conversation/detail.html', {'conversation': conversation, 'form': form})
-
-def send_notification(user, message):
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        f"user_{user.username}",
-        {
-            "type": "chat.message",
-            "message_type": "notification",
-            "message": message,
-        },
-    )
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        user.username,
-        {
-            "type": "chat.message",
-            "message_type": "notification",
-            "message": message,
-        },
-    )
