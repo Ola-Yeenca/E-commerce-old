@@ -10,7 +10,9 @@
 
 {% if request.user.is_authenticated %}
 <div class="mb-4">
+  <h1 class=indox-header>
     Welcome, <strong>{{ request.user.username }}</strong>!
+  </h1>
 </div>
 {% endif %}
 
@@ -24,12 +26,14 @@
                 <div>
                     {% for member in conversation.members.all %}
                         {% if member != request.user %}
-                            <p>
-                                <div class="mb-4">
-                                    <strong>{{ member.username }}</strong> | {{ conversation.timestamp }} | {{ conversation.modified_at }}
-                                    says: "{{ conversation.messages.first.message|truncatechars:"100"}}..."
-                                </div>
-                            </p>
+                          <div class="mb-4">
+                            <h1>
+                              <strong>{{ member.username }}</strong> | {{ conversation.timestamp }} | {{ conversation.modified_at }}
+                            </h1>
+                            <h2>
+                              says: "{{ conversation.messages.first.message|truncatechars:"100"}}..."
+                            </h2>
+                          </div>
                             <p>{{ conversation.item.name }}</p>
                         {% endif %}
                     {% endfor %}

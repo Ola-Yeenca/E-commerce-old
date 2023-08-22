@@ -121,6 +121,7 @@ h1, h2, h3, h4, p {
 h1 {
   font-size: 3rem;
   font-weight: 700;
+  color: #e6fff7;
 }
 
 h2 {
@@ -141,6 +142,7 @@ h4 {
 p {
   font-size: 1.5rem;
   font-weight: 500;
+  line-height: 1.5;
 }
 
 a {
@@ -149,4 +151,91 @@ a {
   font-weight: 500;
   letter-spacing: .1rem;
   transition: all .3s ease-in-out;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  background-color: #f3f8fa; /* Set your desired background color */
+  padding: 3rem;
+  border-radius: 1rem;
+}
+
+.contact-header {
+  color: #333;
+}
+
+.contact-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.contact-header p {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.contact-form {
+  grid-column: span 2;
+}
+
+.contact-form form {
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.contact-form h2 {
+  color: var(--main-color);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.contact-form label {
+  color: var(--main-color);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.contact-form input,
+.contact-form textarea {
+  border: 1px solid var(--main-color);
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.contact-form button {
+  background-color: var(--main-color);
+  border-radius: 1rem;
+  color: #e6fff7;
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  padding: 1rem 2rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.contact-image {
+  text-align: center;
+}
+
+.contact-image img {
+  max-width: 100%;
+  border-radius: 0.5rem;
 }

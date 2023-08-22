@@ -4,7 +4,45 @@
 {% block title %} Contact {% endblock %}
 
 {% block content %}
-<h1>
-  Contact Page!
-</h1>
+<div class="contact-container">
+  <div class="contact-header">
+    <h1>
+      Contact Us
+    </h1>
+    <p>
+      We are always happy to hear from you.
+    </p>
+    <div class="contact-image">
+      <img src="{% static 'images/icons8.gif' %}" alt="" class="rounded-lg">
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <form method="post" action=".">
+      {% csrf_token %}
+
+      <div class="space-y-4">
+        {{ form.as_p }}
+      </div>
+
+      {% if form.errors or form.non_field_errors %}
+      <div class="mb-3 p-6 bg-red-100 text-red-700 border border-red-400 rounded">
+        <h2 class="mb-2 font-semibold">Error</h2>
+        <ul>
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+        <button type="submit" class="mt-6 px-4 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">
+          Send Message
+        </button>
+    </form>
+  </div>
+</div>
+
+<div class="contact-map">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30867.200532783835!2d-3.699732817569505!3d40.41677539623569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42288ab6c992b3%3A0x5f0f70aaea7f1a57!2sMadrid%2C%20Spain!5e0!3m2!1sen!2sus!4v1628643743061!5m2!1sen!2sus" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+</div>
 {% endblock %}

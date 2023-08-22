@@ -14,7 +14,6 @@
 
   </head>
   <body>
-    <!-- Your HTML content here -->
     <section>
       <nav class="sticky py-6 px-6 flex justify-between items-center border-b border-gray-200">
         <a href="/" class="header text-xl font-semibold">
@@ -28,8 +27,8 @@
         <div class="space-x-6">
           {% if request.user.is_authenticated %}
             <a href="{% url 'conversation:inbox' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Message</a>
+            <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500">Search Products</a>
             {% if request.user.is_staff %} <!-- Check if user is NOT staff -->
-              <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500">Products</a>
               <a href="{% url 'dashboard:index' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Dashboard</a>
               <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">Add New Product</a>
             {% endif %}

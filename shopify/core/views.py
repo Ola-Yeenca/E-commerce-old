@@ -2,15 +2,21 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from item.models import Category, Item
 from .forms import SignupForm
+from django.core.paginator import Paginator
 
 def index(request):
-    items = Item.objects.filter(is_sold=False)[0:6]
+    items_list = Item.objects.filter(is_sold=False)
+    paginator = Paginator(items_list, 6)  # Display 6 items per page
+
+    page_number = request.GET.get('page')
+    items = paginator.get_page(page_number)
     categories = Category.objects.all()
 
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': items,
     })
+
 
 def contact(request):
     return render(request, 'core/contact.html')
