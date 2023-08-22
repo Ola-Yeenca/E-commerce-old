@@ -1,51 +1,54 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
-{% block title %} Welcome {% endblock %}
+{% block title %}Welcome{% endblock %}
 
 {% block content %}
-<div class="px-6 py-12 mt-6 bg-gray-100 rounded-xl">
-  <h2 class="mb-12 text-2xl text-center">
-  <span class="typewriter-text">Trending Accessories 🔥🔥🔥!</span></h2>
+<div class="container mx-auto px-6 py-12 mt-6 bg-gray-100 rounded-xl">
+  <h2 class="mb-8 text-2xl text-center">
+    <span class="typewriter-text">Trending Accessories 🔥🔥🔥!</span>
+  </h2>
 
   {% if items %}
-    <!-- Debug statement -->
-    <p>Number of accessories: {{ items|length }}</p>
+    <p class="text-center text-gray-600">
+      Number of accessories: {{ items|length }}
+    </p>
   {% else %}
-    <p>No accessories available.</p>
+    <p class="text-center text-gray-600">No accessories available.</p>
   {% endif %}
 
-  <div class="grid grid-cols-3 gap-3">
+  <div class="grid grid-cols-1 gap-4 mt-6 md:grid-cols-3">
     {% for item in items %}
-      <div>
-        <a href="{% url 'item:detail' item.id %}">
-          <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-32 h-32 mb-4 rounded-full">
-          <div class="p-6 bg-white rounded-b-xl">
-          <h2 class="text-2xl">{{ item.name }}</h2>
-          <p class="text-black-100">Price: {{ item.price }}EUR</p>
-          </div>
-        </a>
-
-      </div>
+    <div class="bg-white rounded-xl shadow-md">
+      <a href="{% url 'item:detail' item.id %}">
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-40 mb-4 rounded-t-xl object-cover">
+        <div class="p-6 rounded-b-xl">
+          <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+          <p class="text-gray-600">Price: {{ item.price }} EUR</p>
+        </div>
+      </a>
+    </div>
     {% endfor %}
   </div>
 </div>
 
-<div class="px-6 py-12 mt-6 bg-gray100 rounded-xl">
-  <h2 class="mb-12 text-2xl text-center">Categories</h2>
+<div class="container mx-auto px-6 py-12 mt-6 bg-gray-100 rounded-xl">
+  <h2 class="mb-8 text-2xl text-center">Categories</h2>
 
-  <div class="grid grid-cols-3 gap-3">
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
     {% for category in categories %}
-      <div>
-        <a href="#"></a>
-        <div class="p-6 bg-white rounded-b-xl">
-          <h2 class="text-2xl">{{ category.name }}</h2>
-          <p class="text-gray-500">{{ category.items.count }} items </p>
+    <div class="bg-white rounded-xl shadow-md">
+      <a href="#" class="block">
+        <div class="p-6 rounded-b-xl">
+          <h2 class="text-lg font-semibold">{{ category.name }}</h2>
+          <p class="text-gray-600">{{ category.items.count }} items</p>
         </div>
-      </div>
+      </a>
+    </div>
     {% endfor %}
   </div>
-  <div class="py-4">
+
+  <div class="py-4 text-center">
     <div class="pagination">
       <span class="step-links">
         {% if items.has_previous %}

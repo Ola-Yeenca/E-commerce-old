@@ -1,7 +1,5 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
 
 class MessageConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -32,6 +30,7 @@ class MessageConsumer(AsyncWebsocketConsumer):
                 'message_type': 'new_message',
                 'message': content,
                 'sender': sender.username,
+                'timestamp': 'timestamp_placeholder',  # You'll need to replace this with the actual timestamp
             }
         )
 

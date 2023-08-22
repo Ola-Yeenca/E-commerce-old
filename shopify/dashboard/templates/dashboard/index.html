@@ -1,37 +1,30 @@
-
 {% extends 'core/base.html' %}
 {% load static %}
 
-
-{% block title %}{{ dashboard }}{% endblock  %}
+{% block title %}{{ dashboard }}{% endblock %}
 
 {% block content %}
-<div class="px-6 py-12 mt-6 bg-gray-100 rounded-xl">
-  <h2 class="mb-12 text-2xl text-center">
-  <span class="text-blue-500">My Accessories</span>
+<div class="container mx-auto py-12 mt-6 bg-gray-100 rounded-xl">
+  <h2 class="mb-12 text-2xl text-center text-blue-500">
+    My Accessories
   </h2>
 
   {% if items %}
-    <!-- Debug statement -->
-    <p>Number of accessories: {{ items|length }}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {% for item in items %}
+        <div class="bg-white p-6 rounded-xl shadow-md">
+          <a href="{% url 'item:detail' item.id %}">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-40 mb-4 rounded-lg object-cover">
+            <div>
+              <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+              <p class="text-gray-700">Price: {{ item.price }}</p>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
   {% else %}
-    <p>No accessories available.</p>
+    <p class="text-center text-gray-600 mt-8">No accessories available.</p>
   {% endif %}
-
-  <div class="grid grid-cols-3 gap-3">
-    {% for item in items %}
-      <div>
-        <a href="{% url 'item:detail' item.id %}">
-          <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-32 h-32 mb-4 rounded-full">
-          <div class="p-6 bg-white rounded-b-xl">
-          <h2 class="text-2xl">{{ item.name }}</h2>
-          <p class="text-black-100">Price: {{ item.price }}</p>
-          </div>
-        </a>
-
-      </div>
-    {% endfor %}
-  </div>
 </div>
-
-{% endblock  %}
+{% endblock %}

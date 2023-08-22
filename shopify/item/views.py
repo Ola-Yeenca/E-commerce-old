@@ -25,7 +25,7 @@ def items(request):
         items = []
 
     if not items:
-        error_message = "Product not found."
+        error_message = f"No products found for '{query}'."
         return render(request, 'item/error.html', {'error_message': error_message})
 
     return render(request, 'item/items.html', {

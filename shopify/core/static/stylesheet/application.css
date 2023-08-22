@@ -1,18 +1,16 @@
+/* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Open+Sans:wght@500&family=Poppins:wght@200&family=Roboto:wght@700&display=swap');
 
-
+/* Variables */
 :root {
   --bg-color: #000033;
   --main-color: #006600;
-  --main-color-hover: #009900;
-  --main-color-active: #00cc00;
   --second-color: #008055;
-  --second-color-hover: #00a070;
-  --second-color-active: #00cc8c;
   --text-color: rgb(12, 1, 1);
   --text-font: 'Open Sans', sans-serif;
 }
 
+/* Reset and Base Styles */
 html {
   font-size: 69.5%;
   overflow-x: hidden;
@@ -28,23 +26,7 @@ body {
   padding: 0;
 }
 
-section {
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 0 1.5rem;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  scroll-behavior: smooth;
-  font-family: 'Poppins', sans-serif;
-}
-
+/* Header and Navigation */
 nav {
   background-color: var(--bg-color);
   display: flex;
@@ -62,7 +44,7 @@ nav .sticky {
 }
 
 nav a {
-  color: #e6fff7 !important;
+  color: #e6fff7;
   text-transform: uppercase;
   font-size: 1.5rem;
   font-weight: 500;
@@ -73,18 +55,10 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--second-color-active) !important;
+  color: var(--second-color);
 }
 
-span {
-  color: var(--main-color) !important;
-  text-transform: uppercase;
-  font-size: 2.5rem;
-  font-weight: 500;
-  letter-spacing: .1rem;
-  font-family: 'Courier New', Courier, monospace;
-}
-
+/* Typewriter Text */
 .typewriter-text {
   padding: 1rem;
   display: inline-block;
@@ -93,7 +67,7 @@ span {
   animation: typewriter 4s steps(30) 1s infinite, cursor-blink 3s infinite;
 }
 
-
+/* Keyframes for Typewriter and Cursor Blink */
 @keyframes typewriter {
   from {
     width: 0;
@@ -102,7 +76,6 @@ span {
     width: 100%;
   }
 }
-
 
 @keyframes cursor-blink {
   0%, 100% {
@@ -113,6 +86,7 @@ span {
   }
 }
 
+/* Headings and Paragraphs */
 h1, h2, h3, h4, p {
   margin: 1rem 0;
   text-transform: uppercase;
@@ -145,6 +119,7 @@ p {
   line-height: 1.5;
 }
 
+/* Links */
 a {
   color: var(--main-color);
   font-size: 1.5rem;
@@ -153,89 +128,6 @@ a {
   transition: all .3s ease-in-out;
 }
 
-.contact-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: center;
-  background-color: #f3f8fa; /* Set your desired background color */
-  padding: 3rem;
-  border-radius: 1rem;
-}
-
-.contact-header {
-  color: #333;
-}
-
-.contact-header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.contact-header p {
-  font-size: 1.25rem;
-  font-weight: 500;
-}
-
-.contact-form {
-  grid-column: span 2;
-}
-
-.contact-form form {
-  background-color: #fff;
-  border-radius: 1rem;
-  padding: 2rem;
-}
-
-.contact-form h2 {
-  color: var(--main-color);
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.contact-form label {
-  color: var(--main-color);
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.contact-form input,
-.contact-form textarea {
-  border: 1px solid var(--main-color);
-  border-radius: 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  width: 100%;
-}
-
-.contact-form textarea {
-  resize: vertical;
-  min-height: 150px;
-}
-
-.contact-form button {
-  background-color: var(--main-color);
-  border-radius: 1rem;
-  color: #e6fff7;
-  cursor: pointer;
-  font-size: 1.25rem;
-  font-weight: 500;
-  letter-spacing: 0.1rem;
-  padding: 1rem 2rem;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.contact-image {
-  text-align: center;
-}
-
-.contact-image img {
-  max-width: 100%;
-  border-radius: 0.5rem;
+a:hover {
+  color: var(--second-color);
 }

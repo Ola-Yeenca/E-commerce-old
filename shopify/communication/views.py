@@ -5,6 +5,7 @@ from item.models import Item
 from .forms import ConversationMessageForm
 
 
+
 @login_required
 def new_conversation(request, item_pk):
     item = get_object_or_404(Item, pk=item_pk)
@@ -69,6 +70,15 @@ def detail(request, conversation_pk):
     return render(request, 'conversation/detail.html', {'conversation': conversation, 'form': form})
 
 def send_notification(user, message):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        f"user_{user.username}",
+        {
+            "type": "chat.message",
+            "message_type": "notification",
+            "message": message,
+        },
+    )
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         user.username,

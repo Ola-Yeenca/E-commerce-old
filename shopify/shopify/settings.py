@@ -65,6 +65,13 @@ TEMPLATES = [
     },
 ]
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+
 WSGI_APPLICATION = 'shopify.wsgi.application'
 ASGI_APPLICATION = 'shopify.asgi.application'
 
