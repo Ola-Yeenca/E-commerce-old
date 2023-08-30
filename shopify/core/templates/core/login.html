@@ -30,6 +30,11 @@
     {% endif %}
 
     <button type="submit" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Log In</button>
+    <div class="mt-4">
+      <a href="{% url 'core:reset_password' %}" class="text-lg font-semibold hover:text-gray-500">Forgot Password?</a>
+    <div>
+      <a href="{% url 'core:signup' %}" class="text-lg font-semibold hover:text-gray-500">Sign Up</a>
+    </div>
   </form>
 </div>
 {% endblock %}

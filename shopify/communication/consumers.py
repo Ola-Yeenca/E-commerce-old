@@ -2,6 +2,18 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 class MessageConsumer(AsyncWebsocketConsumer):
+
+    async def websocket_connect(self, message):
+        await self.accept()
+
+    async def websocket_receive(self, message):
+        await self.send(text_data=json.dumps({
+            'message': 'This is a message from the server!'
+        }))
+
+    async def websocket_disconnect(self, message):
+        pass
+
     async def connect(self):
         self.conversation_pk = self.scope['url_route']['kwargs']['conversation_pk']
         self.room_group_name = f"conversation_{self.conversation_pk}"
