@@ -46,6 +46,31 @@ def detail(request, pk):
         'related_items': related_items
     })
 
+def category(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    items = Item.objects.filter(category=category, is_sold=False)
+
+    return render(request, 'item/items.html', {
+        'items': items,
+        'category': category
+    })
+
+def set_sold(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    item.is_sold = True
+    item.save()
+
+    return redirect('item:detail', pk=item.id)
+
+# def new_in(request, pk):
+#     category = get_object_or_404(Category, pk=pk)
+#     items = Item.objects.filter(category=category, is_sold=False).order_by('-created_at')[0:3]
+
+#     return render(request, 'item/items.html', {
+#         'items': items,
+#         'category': category
+#     })
+
 @login_required
 @staff_member_required
 def new(request):

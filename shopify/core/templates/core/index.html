@@ -38,7 +38,7 @@
   <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
     {% for category in categories %}
     <div class="bg-white rounded-xl shadow-md">
-      <a href="#" class="block">
+      <a href="{% url 'item:category' category.id %}" class="block">
         <div class="p-6 rounded-b-xl">
           <h2 class="text-lg font-semibold">{{ category.name }}</h2>
           <p class="text-gray-600">{{ category.items.count }} items</p>

@@ -41,7 +41,11 @@
     {% for item in items %}
     <div class="bg-white p-6 rounded-xl shadow-md">
       <a href="{% url 'item:detail' item.id %}">
-        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-40 mb-4 rounded-lg object-cover">
+        {% if item.image %}
+          <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-40 mb-4 rounded-lg object-cover">
+        {% else %}
+          <p>No Image Available</p>
+        {% endif %}
         <div>
           <h2 class="text-xl font-semibold">{{ item.name }}</h2>
           <p class="text-gray-700">Price: {{ item.price }} EUR</p>

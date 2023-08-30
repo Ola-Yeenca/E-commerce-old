@@ -131,3 +131,7 @@ a {
 a:hover {
   color: var(--second-color);
 }
+
+.item-color {
+  color: var(--main-color);
+}
