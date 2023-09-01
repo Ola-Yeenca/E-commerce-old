@@ -20,7 +20,7 @@ Your E-commerce Shopping Website is a full-stack web application built using Dja
 - Search products by name
 - Direct messaging with the admin for inquiries and transactions
 - User-friendly dashboard for product management
-- ...
+
 
 ## Demo
 ![Demo GIF](https://x.com/yeencca/status/1696951209079275753?s=46&t=z62jeC41CcFCjOORxvkQcg) 
@@ -43,7 +43,7 @@ Your E-commerce Shopping Website is a full-stack web application built using Dja
 ## Technologies Used
 - Django: A high-level Python web framework
 - HTML, CSS, JavaScript: Front-end development
-- PostgreSQL: Database management
+- SQLite: Database management
 - Python
 
 ## Contributing
