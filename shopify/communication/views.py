@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Case, When, Value, BooleanField
 from .models import Conversation, ConversationMessage
 from item.models import Item
+from django.http import HttpResponseForbidden
 from .forms import ConversationMessageForm
 from django.contrib.auth.decorators import user_passes_test
 
@@ -57,12 +58,17 @@ def inbox(request):
 
 
 @login_required
-@user_passes_test(lambda user: user.is_superuser or user.is_staff, login_url='dashboard:index')
 def detail(request, conversation_pk):
     conversation = get_object_or_404(Conversation, pk=conversation_pk)
 
-    if request.user not in conversation.members.all():
-        return redirect('conversation:inbox')
+    if not (request.user in conversation.members.all()
+            or request.user.is_superuser
+            or request.user.is_staff):
+        # return redirect('conversation:inbox')
+        return HttpResponseForbidden("You are not authorized to access this page.")
+    print('User:', request.user)
+    print('Is Superuser or Staff:', request.user.is_superuser or request.user.is_staff)
+
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
