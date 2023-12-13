@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+  Add to Cart
+{% endblock %}
+
+{% block content %}
+  <div class="container mx-auto my-10">
+    <h1 class="text-3xl mb-6">Item Added to Cart</h1>
+    <p class="text-gray-800">The selected item has been added to your cart successfully.</p>
+    <a href="{% url 'cart:view_cart' %}" class="mt-4 text-blue-500">View Cart</a>
+  </div>
+{% endblock %}

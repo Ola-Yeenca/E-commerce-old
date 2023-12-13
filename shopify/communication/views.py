@@ -1,11 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
+import logging
 from django.contrib.auth.decorators import login_required
 from django.db.models import Case, When, Value, BooleanField
 from .models import Conversation, ConversationMessage
 from item.models import Item
+from django.core.paginator import Paginator
 from django.http import HttpResponseForbidden
 from .forms import ConversationMessageForm
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Case, When, Value, BooleanField
+from django.contrib.auth.models import User
+from django.db.models import Case, When, Value, BooleanField, F, Max
+
+
+logger = logging.getLogger(__name__)
+
 
 
 @login_required
@@ -51,24 +60,27 @@ def inbox(request):
     ))
     conversations = Conversation.objects.all()
     for conversation in conversations:
-        print('Conversation:', conversation)
-        print('Members:', conversation.members.all())
+        logger.debug('Conversation: %s', conversation)
+        logger.debug('Members: %s', conversation.members.all())
 
     return render(request, 'conversation/inbox.html', {'conversations': conversations})
+
+    
 
 
 @login_required
 def detail(request, conversation_pk):
     conversation = get_object_or_404(Conversation, pk=conversation_pk)
 
-    if not (request.user in conversation.members.all()
-            or request.user.is_superuser
-            or request.user.is_staff):
-        # return redirect('conversation:inbox')
+    if not (request.user in conversation.members.all() or request.user.is_superuser or request.user.is_staff):
         return HttpResponseForbidden("You are not authorized to access this page.")
-    print('User:', request.user)
-    print('Is Superuser or Staff:', request.user.is_superuser or request.user.is_staff)
 
+    # Ensure messages are ordered by timestamp in descending order
+    messages = conversation.messages.order_by('-timestamp')
+
+    conversation.last_message = F('messages__timestamp')
+    if messages.exists():
+        conversation.last_message = messages[0]
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
