@@ -62,6 +62,18 @@
         {% endif %}
       </div>
       {% endif %}
+
+      {% if request.user != item.created_by %}
+        <div class="mt-6">
+          <a href="{% url 'cart:add_to_cart' item.id %}" class="inline-block py-2 px-4 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700">
+            Add to Cart
+          </a>
+
+          <a href="{% url 'cart:view_cart' %}" class="inline-block py-2 px-4 text-lg font-semibold bg-green-500 text-white rounded-xl hover:bg-green-700 ml-2">
+            View Cart
+          </a>
+        </div>
+      {% endif %}
     </div>
   </div>
 

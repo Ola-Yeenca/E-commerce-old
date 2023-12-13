@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+  Checkout
+{% endblock %}
+
+{% block content %}
+  <div class="container mx-auto my-10">
+    <h1 class="text-3xl mb-6">Checkout</h1>
+    
+    <!-- Display checkout form and details -->
+    <!-- Example: -->
+    <form method="post" action="{% url 'cart:checkout' %}">
+      {% csrf_token %}
+      <!-- Add your checkout form fields here -->
+
+      <button type="submit" class="mt-4 text-blue-500">Complete Purchase</button>
+    </form>
+  </div>
+{% endblock %}

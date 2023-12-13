@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+  View Cart
+{% endblock %}
+
+{% block content %}
+  <div class="container mx-auto my-10">
+    <h1 class="text-3xl mb-6">Your Shopping Cart</h1>
+    
+    <!-- Display cart items here -->
+    <!-- Example: -->
+    {% for item in cart_items %}
+      <div class="mb-4">
+        <p>{{ item.name }} - {{ item.price }} EUR</p>
+      </div>
+    {% endfor %}
+
+    <a href="{% url 'cart:checkout' %}" class="mt-4 text-blue-500">Proceed to Checkout</a>
+  </div>
+{% endblock %}
