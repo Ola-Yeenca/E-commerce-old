@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: shopify
+    buildCommand: "./build.sh"
+    env: python
+    startCommand: "gunicorn shopify.shopify.wsgi:application"

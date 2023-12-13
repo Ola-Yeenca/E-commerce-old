@@ -42,3 +42,29 @@ Conversation: Conversation object (13)
 Members: <QuerySet [<User: alberta2>]>
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Conversation: Conversation object (14)
+Members: <QuerySet [<User: qkl8s5nde@mozmail.com>]>
+Conversation: Conversation object (13)
+Members: <QuerySet [<User: alberta2>]>
+Conversation: Conversation object (14)
+Members: <QuerySet [<User: qkl8s5nde@mozmail.com>]>
+Conversation: Conversation object (13)
+Members: <QuerySet [<User: alberta2>]>
+Conversation: Conversation object (15)
+Members: <QuerySet [<User: kaleb>]>
+Conversation: Conversation object (14)
+Members: <QuerySet [<User: qkl8s5nde@mozmail.com>]>
+Conversation: Conversation object (13)
+Members: <QuerySet [<User: alberta2>]>
+Conversation: Conversation object (15)
+Members: <QuerySet [<User: kaleb>]>
+Conversation: Conversation object (14)
+Members: <QuerySet [<User: qkl8s5nde@mozmail.com>]>
+Conversation: Conversation object (13)
+Members: <QuerySet [<User: alberta2>]>
+Forbidden: /communication/detail/14/
+Forbidden: /communication/detail/13/
+/Users/olayinkatimothy/Desktop/E-commerce/shopify/shopify/settings.py changed, reloading.
+Watching for file changes with StatReloader
