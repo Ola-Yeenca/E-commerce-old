@@ -1,0 +1,137 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Open+Sans:wght@500&family=Poppins:wght@200&family=Roboto:wght@700&display=swap');
+
+/* Variables */
+:root {
+  --bg-color: #000033;
+  --main-color: #006600;
+  --second-color: #008055;
+  --text-color: rgb(12, 1, 1);
+  --text-font: 'Open Sans', sans-serif;
+}
+
+/* Reset and Base Styles */
+html {
+  font-size: 69.5%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--text-font);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header and Navigation */
+nav {
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav .sticky {
+  border-bottom: 1rem solid rgba(0, 0, 0, .2);
+  background-color: var(--bg-color);
+  box-shadow: 0 0 1rem var(--main-color);
+}
+
+nav a {
+  color: #e6fff7;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: .1rem;
+  margin: 0 1rem;
+  padding: 1rem 0;
+  transition: all .3s ease-in-out;
+}
+
+nav a:hover {
+  color: var(--second-color);
+}
+
+/* Typewriter Text */
+.typewriter-text {
+  padding: 1rem;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 4s steps(30) 1s infinite, cursor-blink 3s infinite;
+}
+
+/* Keyframes for Typewriter and Cursor Blink */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes cursor-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Headings and Paragraphs */
+h1, h2, h3, h4, p {
+  margin: 1rem 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #e6fff7;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+p {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Links */
+a {
+  color: var(--main-color);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: .1rem;
+  transition: all .3s ease-in-out;
+}
+
+a:hover {
+  color: var(--second-color);
+}
+
+.item-color {
+  color: var(--main-color);
+}
