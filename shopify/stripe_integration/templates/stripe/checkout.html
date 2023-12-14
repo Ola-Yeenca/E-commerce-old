@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+  Checkout
+{% endblock %}
+
+{% block content %}
+  <h2>Checkout</h2>
+  {% if error_message %}
+    <p>{{ error_message }}</p>
+  {% endif %}
+  <form id="payment-form" method="post">
+    {% csrf_token %}
+    <!-- Your checkout form fields here -->
+
+    <div>
+      <label for="card-element">Credit or debit card:</label>
+      <div id="card-element"></div>
+    </div>
+
+    <!-- Used to display form errors. -->
+    <div id="card-errors" role="alert"></div>
+
+    <button type="submit">Pay Now</button>
+  </form>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="{% static 'js/application.js' %}"></script>
+{% endblock %}
