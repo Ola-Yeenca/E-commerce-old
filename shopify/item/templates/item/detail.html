@@ -37,6 +37,8 @@
         <strong class="text-gray-600">Description:</strong><br>
         {{ item.description }}
       </p>
+
+      <a href="{% url 'cart:add_to_cart' item.id %}">Add to Cart</a>
       {% endif %}
 
       {% if request.user == item.created_by %}

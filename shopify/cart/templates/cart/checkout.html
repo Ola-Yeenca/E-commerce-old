@@ -1,0 +1,13 @@
+<!-- cart/checkout.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Checkout</h2>
+
+  <!-- Your checkout form and summary go here -->
+  
+  <form method="post" action="{% url 'cart:checkout' %}">
+    <!-- Your form fields go here -->
+    <input type="submit" value="Place Order">
+  </form>
+{% endblock %}

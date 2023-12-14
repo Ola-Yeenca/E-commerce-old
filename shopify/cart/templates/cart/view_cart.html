@@ -1,0 +1,36 @@
+<!-- cart/view_cart.html -->
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <h2>Your Shopping Cart</h2>
+
+  {% if cart %}
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item_id, quantity in cart.items %}
+          <tr>
+            <td>{{ item_id }}</td>
+            <td>{{ quantity }}</td>
+            <td>
+              <a href="{% url 'cart:adjust_cart' item_id %}">Adjust</a>
+              <a href="{% url 'cart:remove_from_cart' item_id %}">Remove</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a href="{% url 'cart:checkout' %}">Proceed to Checkout</a>
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
+{% endblock %}
